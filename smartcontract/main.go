@@ -9,6 +9,9 @@ import (
 	"io/ioutil"
 	"os"
 	"time"
+
+	"github.com/CebEcloudTime/charitycc/protos"
+	"github.com/CebEcloudTime/charitycc/utils"
 )
 
 func main() {
@@ -24,7 +27,7 @@ func main() {
 	fmt.Println(base64String)
 
 	hashed := sha256.Sum256([]byte(base64String))
-	_sign, _ := RsaSign(crypto.SHA256, hashed[:], privateKey)
+	_sign, _ := utils.RsaSign(crypto.SHA256, hashed[:], privateKey)
 
 	fmt.Println("=========== sign : ")
 	fmt.Println(base64.StdEncoding.EncodeToString(_sign))
@@ -40,14 +43,14 @@ func main() {
 	fmt.Println(base64BargainString)
 
 	bargainHashed := sha256.Sum256([]byte(base64BargainString))
-	_signBargain, _ := RsaSign(crypto.SHA256, bargainHashed[:], privateKey)
+	_signBargain, _ := utils.RsaSign(crypto.SHA256, bargainHashed[:], privateKey)
 
 	fmt.Println("=========== sign : ")
 	fmt.Println(base64.StdEncoding.EncodeToString(_signBargain))
 }
 
-func genSmartContract() SmartContract {
-	var treaty SmartContract
+func genSmartContract() protos.SmartContract {
+	var treaty protos.SmartContract
 
 	treaty.Addr = "smartcontract01:1d54a8713923af1718e8eeabec3e4d8596dbbdf2da3f69ea23aeb8c7a5ab73d8"
 	treaty.Name = "宁夏西部地区母亲水窖项目"
@@ -64,8 +67,8 @@ func genSmartContract() SmartContract {
 	return treaty
 }
 
-func genBargain() Bargain {
-	var contract Bargain
+func genBargain() protos.Bargain {
+	var contract protos.Bargain
 
 	contract.Addr = "bargain01:8fcc58ea7ed212f7c1ba359d15bea144e67c390044d953797548cf67fd62534a"
 	contract.Name = "宁夏西部地区母亲水窖项目XX县XX村水窖"

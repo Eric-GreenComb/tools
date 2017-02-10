@@ -9,6 +9,9 @@ import (
 	"io/ioutil"
 	"os"
 	"time"
+
+	"github.com/CebEcloudTime/charitycc/protos"
+	"github.com/CebEcloudTime/charitycc/utils"
 )
 
 func main() {
@@ -27,15 +30,15 @@ func main() {
 	fmt.Println(base64String)
 
 	hashed := sha256.Sum256([]byte(base64String))
-	_sign, _ := RsaSign(crypto.SHA256, hashed[:], fund01private)
+	_sign, _ := utils.RsaSign(crypto.SHA256, hashed[:], fund01private)
 
 	fmt.Println("============== sign")
 	fmt.Println(base64.StdEncoding.EncodeToString(_sign))
 
 }
 
-func genTx(donorAddr string) TX {
-	var tx TX
+func genTx(donorAddr string) protos.TX {
+	var tx protos.TX
 
 	tx.Version = 170101
 	tx.Timestamp = time.Now().UTC().Unix()
@@ -51,9 +54,9 @@ func genTx(donorAddr string) TX {
 	return tx
 }
 
-func genTxin() []*TX_TXIN {
-	var txins []*TX_TXIN
-	var txin1 TX_TXIN
+func genTxin() []*protos.TX_TXIN {
+	var txins []*protos.TX_TXIN
+	var txin1 protos.TX_TXIN
 	txin1.Addr = "smartcontract01:1d54a8713923af1718e8eeabec3e4d8596dbbdf2da3f69ea23aeb8c7a5ab73d8"
 	txin1.SourceTxHash = "ed21c857da821e827380c8faafa99d94d4102a08ff1a7e64b05183c42f6db228"
 	txin1.Idx = 0
@@ -63,8 +66,8 @@ func genTxin() []*TX_TXIN {
 	return txins
 }
 
-func genTxout(donorAddr string) []*TX_TXOUT {
-	var txouts []*TX_TXOUT
+func genTxout(donorAddr string) []*protos.TX_TXOUT {
+	var txouts []*protos.TX_TXOUT
 
 	rechangeTxout := genRechangeTxout(donorAddr)
 	txouts = append(txouts, &rechangeTxout)
@@ -75,9 +78,9 @@ func genTxout(donorAddr string) []*TX_TXOUT {
 	return txouts
 }
 
-func genRechangeTxout(donorAddr string) TX_TXOUT {
+func genRechangeTxout(donorAddr string) protos.TX_TXOUT {
 
-	var txout TX_TXOUT
+	var txout protos.TX_TXOUT
 
 	txout.Addr = "smartcontract01:1d54a8713923af1718e8eeabec3e4d8596dbbdf2da3f69ea23aeb8c7a5ab73d8"
 	txout.Value = 1000 * 100 * 95
@@ -86,16 +89,16 @@ func genRechangeTxout(donorAddr string) TX_TXOUT {
 
 	txDataInfo := fmt.Sprintf("%s%d", txout.Addr, txout.Value)
 	hashed := sha256.Sum256([]byte(txDataInfo))
-	_sign, _ := RsaSign(crypto.SHA256, hashed[:], smartcontract01private)
+	_sign, _ := utils.RsaSign(crypto.SHA256, hashed[:], smartcontract01private)
 
 	txout.Sign = base64.StdEncoding.EncodeToString(_sign)
 
 	return txout
 }
 
-func genContractTxout(donorAddr string) TX_TXOUT {
+func genContractTxout(donorAddr string) protos.TX_TXOUT {
 
-	var txout TX_TXOUT
+	var txout protos.TX_TXOUT
 
 	txout.Addr = "bargain01:8fcc58ea7ed212f7c1ba359d15bea144e67c390044d953797548cf67fd62534a"
 	txout.Value = 1000 * 100 * 900
@@ -104,7 +107,7 @@ func genContractTxout(donorAddr string) TX_TXOUT {
 
 	txDataInfo := fmt.Sprintf("%s%d", txout.Addr, txout.Value)
 	hashed := sha256.Sum256([]byte(txDataInfo))
-	_sign, _ := RsaSign(crypto.SHA256, hashed[:], bargain01private)
+	_sign, _ := utils.RsaSign(crypto.SHA256, hashed[:], bargain01private)
 
 	txout.Sign = base64.StdEncoding.EncodeToString(_sign)
 

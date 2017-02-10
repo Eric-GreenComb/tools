@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+
+	"github.com/CebEcloudTime/charitycc/utils"
 )
 
 func main() {
@@ -17,7 +19,7 @@ func main() {
 	fmt.Println(targetAddr)
 
 	targetAddrHashed := sha256.Sum256([]byte(targetAddr))
-	_sign, _ := RsaSign(crypto.SHA256, targetAddrHashed[:], privateKey)
+	_sign, _ := utils.RsaSign(crypto.SHA256, targetAddrHashed[:], privateKey)
 
 	fmt.Println("=========== sign : ")
 	fmt.Println(base64.StdEncoding.EncodeToString(_sign))

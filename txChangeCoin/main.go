@@ -9,6 +9,9 @@ import (
 	"io/ioutil"
 	"os"
 	"time"
+
+	"github.com/CebEcloudTime/charitycc/protos"
+	"github.com/CebEcloudTime/charitycc/utils"
 )
 
 func main() {
@@ -24,15 +27,15 @@ func main() {
 	fmt.Println(base64String)
 
 	hashed := sha256.Sum256([]byte(base64String))
-	_sign, _ := RsaSign(crypto.SHA256, hashed[:], cebbankprivate)
+	_sign, _ := utils.RsaSign(crypto.SHA256, hashed[:], cebbankprivate)
 
 	fmt.Println("============== sign")
 	fmt.Println(base64.StdEncoding.EncodeToString(_sign))
 
 }
 
-func genTx() TX {
-	var tx TX
+func genTx() protos.TX {
+	var tx protos.TX
 
 	tx.Version = 170101
 	tx.Timestamp = time.Now().UTC().Unix()
@@ -48,9 +51,9 @@ func genTx() TX {
 	return tx
 }
 
-func genTxin() []*TX_TXIN {
-	var txins []*TX_TXIN
-	var txin TX_TXIN
+func genTxin() []*protos.TX_TXIN {
+	var txins []*protos.TX_TXIN
+	var txin protos.TX_TXIN
 	txin.Addr = "cebbank:29731d0e6c6ca9cb985eabf9fe716d1644c624cae5265c36c9b7a46702003924"
 	txin.SourceTxHash = "adbe196249dbadaaca9ca35ca1fc33550969691d0889f7291658d4c0bf937f4c"
 	txin.Idx = 0
@@ -60,8 +63,8 @@ func genTxin() []*TX_TXIN {
 	return txins
 }
 
-func genTxout() []*TX_TXOUT {
-	var txouts []*TX_TXOUT
+func genTxout() []*protos.TX_TXOUT {
+	var txouts []*protos.TX_TXOUT
 
 	rechangeTxout := genRechangeTxout()
 	txouts = append(txouts, &rechangeTxout)
@@ -72,30 +75,30 @@ func genTxout() []*TX_TXOUT {
 	return txouts
 }
 
-func genRechangeTxout() TX_TXOUT {
-	var txout TX_TXOUT
+func genRechangeTxout() protos.TX_TXOUT {
+	var txout protos.TX_TXOUT
 
 	txout.Value = (10000000 - 1000) * 100 * 1000
 	txout.Addr = "cebbank:29731d0e6c6ca9cb985eabf9fe716d1644c624cae5265c36c9b7a46702003924"
 
 	txDataInfo := fmt.Sprintf("%s%d", txout.Addr, txout.Value)
 	hashed := sha256.Sum256([]byte(txDataInfo))
-	_sign, _ := RsaSign(crypto.SHA256, hashed[:], cebbankprivate)
+	_sign, _ := utils.RsaSign(crypto.SHA256, hashed[:], cebbankprivate)
 
 	txout.Sign = base64.StdEncoding.EncodeToString(_sign)
 
 	return txout
 }
 
-func genChangeCoinTxout() TX_TXOUT {
-	var txout TX_TXOUT
+func genChangeCoinTxout() protos.TX_TXOUT {
+	var txout protos.TX_TXOUT
 
 	txout.Value = 1000 * 100 * 1000
 	txout.Addr = "donor01:275e74b0e340f54135496e46d829b25af699984e6787f9a7b13191ad991a1eb1"
 
 	txDataInfo := fmt.Sprintf("%s%d", txout.Addr, txout.Value)
 	hashed := sha256.Sum256([]byte(txDataInfo))
-	_sign, _ := RsaSign(crypto.SHA256, hashed[:], donor01private)
+	_sign, _ := utils.RsaSign(crypto.SHA256, hashed[:], donor01private)
 
 	txout.Sign = base64.StdEncoding.EncodeToString(_sign)
 

@@ -9,6 +9,9 @@ import (
 	"io/ioutil"
 	"os"
 	"time"
+
+	"github.com/CebEcloudTime/charitycc/protos"
+	"github.com/CebEcloudTime/charitycc/utils"
 )
 
 func main() {
@@ -25,7 +28,7 @@ func main() {
 	fmt.Println(base64DonorString)
 
 	donorHashed := sha256.Sum256([]byte(base64DonorString))
-	_signDonor, _ := RsaSign(crypto.SHA256, donorHashed[:], privateKey)
+	_signDonor, _ := utils.RsaSign(crypto.SHA256, donorHashed[:], privateKey)
 
 	fmt.Println("=========== sign : ")
 	fmt.Println(base64.StdEncoding.EncodeToString(_signDonor))
@@ -42,7 +45,7 @@ func main() {
 	fmt.Println(base64ContributionString)
 
 	contributionHashed := sha256.Sum256([]byte(donorAddr + base64ContributionString))
-	_signContribution, _ := RsaSign(crypto.SHA256, contributionHashed[:], privateKey)
+	_signContribution, _ := utils.RsaSign(crypto.SHA256, contributionHashed[:], privateKey)
 
 	fmt.Println("=========== sign : ")
 	fmt.Println(base64.StdEncoding.EncodeToString(_signContribution))
@@ -59,14 +62,14 @@ func main() {
 	fmt.Println(base64TrackString)
 
 	trackHashed := sha256.Sum256([]byte(donorAddr + base64TrackString))
-	_signTrack, _ := RsaSign(crypto.SHA256, trackHashed[:], privateKey)
+	_signTrack, _ := utils.RsaSign(crypto.SHA256, trackHashed[:], privateKey)
 
 	fmt.Println("=========== sign : ")
 	fmt.Println(base64.StdEncoding.EncodeToString(_signTrack))
 }
 
-func genDonor(donorAddr string) Donor {
-	var donor Donor
+func genDonor(donorAddr string) protos.Donor {
+	var donor protos.Donor
 
 	donor.Addr = donorAddr
 	donor.Name = "donorUser01"
@@ -75,10 +78,9 @@ func genDonor(donorAddr string) Donor {
 	return donor
 }
 
-func genContribution() DonorContribution {
-	var contribution DonorContribution
+func genContribution() protos.DonorContribution {
+	var contribution protos.DonorContribution
 
-	contribution.Name = "donorUser01"
 	contribution.SmartContractName = "宁夏西部地区母亲水窖项目"
 	contribution.SmartContractAddr = "smartcontract01:1d54a8713923af1718e8eeabec3e4d8596dbbdf2da3f69ea23aeb8c7a5ab73d8"
 	contribution.Amount = 1000 * 100 * 1000
@@ -87,10 +89,9 @@ func genContribution() DonorContribution {
 	return contribution
 }
 
-func genTrack() DonorTrack {
-	var track DonorTrack
+func genTrack() protos.DonorTrack {
+	var track protos.DonorTrack
 
-	track.Name = "donorUser01"
 	track.AccountName = "宁夏西部地区母亲水窖项目XX县XX村水窖"
 	track.AccountAddr = "bargain01:8fcc58ea7ed212f7c1ba359d15bea144e67c390044d953797548cf67fd62534a"
 	track.Amount = 1000 * 100 * 1000
