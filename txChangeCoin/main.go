@@ -55,7 +55,7 @@ func genTxin() []*protos.TX_TXIN {
 	var txins []*protos.TX_TXIN
 	var txin protos.TX_TXIN
 	txin.Addr = "cebbank:29731d0e6c6ca9cb985eabf9fe716d1644c624cae5265c36c9b7a46702003924"
-	txin.SourceTxHash = "adbe196249dbadaaca9ca35ca1fc33550969691d0889f7291658d4c0bf937f4c"
+	txin.SourceTxHash = "e023eb550c4f7b97fdca76a2bcb4a3ea594a2ac6252b8590ba1821c3449fd309"
 	txin.Idx = 0
 
 	txins = append(txins, &txin)

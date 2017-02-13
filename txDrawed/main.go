@@ -58,7 +58,7 @@ func genTxin() []*protos.TX_TXIN {
 	var txins []*protos.TX_TXIN
 	var txin1 protos.TX_TXIN
 	txin1.Addr = "smartcontract01:1d54a8713923af1718e8eeabec3e4d8596dbbdf2da3f69ea23aeb8c7a5ab73d8"
-	txin1.SourceTxHash = "ed21c857da821e827380c8faafa99d94d4102a08ff1a7e64b05183c42f6db228"
+	txin1.SourceTxHash = "b5063f4ec0245a8859d59cb409439d33b9290a4cc6fcffcc41bfd0a1ce161fdd"
 	txin1.Idx = 0
 
 	txins = append(txins, &txin1)
