@@ -65,7 +65,7 @@ func genTxout() []*protos.TX_TXOUT {
 	var txouts []*protos.TX_TXOUT
 	var txout protos.TX_TXOUT
 
-	txout.Value = 10000000 * 100 * 1000
+	txout.Value = 100000000 * 100 * 1000
 	txout.Addr = "cebbank:29731d0e6c6ca9cb985eabf9fe716d1644c624cae5265c36c9b7a46702003924"
 
 	txDataInfo := fmt.Sprintf("%s%d", txout.Addr, txout.Value)

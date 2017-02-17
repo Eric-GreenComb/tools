@@ -55,7 +55,7 @@ func genTxin() []*protos.TX_TXIN {
 	var txins []*protos.TX_TXIN
 	var txin protos.TX_TXIN
 	txin.Addr = "cebbank:29731d0e6c6ca9cb985eabf9fe716d1644c624cae5265c36c9b7a46702003924"
-	txin.SourceTxHash = "e023eb550c4f7b97fdca76a2bcb4a3ea594a2ac6252b8590ba1821c3449fd309"
+	txin.SourceTxHash = "95f3a0e8fa1440b2205b0f3952551fb030b14b6658323b24d4df747a182de621"
 	txin.Idx = 0
 
 	txins = append(txins, &txin)
@@ -78,7 +78,7 @@ func genTxout() []*protos.TX_TXOUT {
 func genRechangeTxout() protos.TX_TXOUT {
 	var txout protos.TX_TXOUT
 
-	txout.Value = (10000000 - 1000) * 100 * 1000
+	txout.Value = (100000000 - 1000) * 100 * 1000
 	txout.Addr = "cebbank:29731d0e6c6ca9cb985eabf9fe716d1644c624cae5265c36c9b7a46702003924"
 
 	txDataInfo := fmt.Sprintf("%s%d", txout.Addr, txout.Value)

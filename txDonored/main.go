@@ -16,28 +16,36 @@ import (
 
 func main() {
 	donorAddr := "donor01:275e74b0e340f54135496e46d829b25af699984e6787f9a7b13191ad991a1eb1"
+	donorUUID := "15F332E9906ED10294CC634747ADD787"
+	smartContractAddr := "smartcontract01:1d54a8713923af1718e8eeabec3e4d8596dbbdf2da3f69ea23aeb8c7a5ab73d8"
 
-	tx := genTx(donorAddr)
+	fmt.Println("============== donorAddr")
+	fmt.Println(donorAddr)
+
+	fmt.Println("============== donorUUID")
+	fmt.Println(donorUUID)
+
+	fmt.Println("============== smartContractAddr")
+	fmt.Println(smartContractAddr)
+
+	tx := genTx(donorAddr, donorUUID)
 
 	json, _ := json.Marshal(tx)
-
-	fmt.Println("============== json")
-	fmt.Println(string(json))
 
 	base64String := base64.StdEncoding.EncodeToString(json)
 
 	fmt.Println("============== base64String")
 	fmt.Println(base64String)
 
-	hashed := sha256.Sum256([]byte(donorAddr + base64String))
-	_sign, _ := utils.RsaSign(crypto.SHA256, hashed[:], channel01private)
+	hashed := sha256.Sum256([]byte(donorAddr + donorUUID + smartContractAddr + base64String))
+	_sign, _ := utils.RsaSign(crypto.SHA256, hashed[:], donor01private)
 
 	fmt.Println("============== sign")
 	fmt.Println(base64.StdEncoding.EncodeToString(_sign))
 
 }
 
-func genTx(donorAddr string) protos.TX {
+func genTx(donorAddr, donorUUID string) protos.TX {
 	var tx protos.TX
 
 	tx.Version = 170101
@@ -45,9 +53,9 @@ func genTx(donorAddr string) protos.TX {
 
 	tx.Txin = genTxin(donorAddr)
 
-	tx.Txout = genTxout(donorAddr)
+	tx.Txout = genTxout(donorAddr, donorUUID)
 
-	tx.InputData = "donoruuid"
+	tx.InputData = donorUUID
 
 	tx.Founder = "channel01"
 
@@ -58,7 +66,7 @@ func genTxin(donorAddr string) []*protos.TX_TXIN {
 	var txins []*protos.TX_TXIN
 	var txin protos.TX_TXIN
 	txin.Addr = donorAddr
-	txin.SourceTxHash = "ddcf86b00cf5c9f36a5ca673c15311d3d23179cfffa70aeda18b58ef1b63f77a"
+	txin.SourceTxHash = "700e7f51da673619e602b5d45f0c30b10f03410181c569ebdf2583fdbeb11371"
 	txin.Idx = 1
 
 	txins = append(txins, &txin)
@@ -66,19 +74,31 @@ func genTxin(donorAddr string) []*protos.TX_TXIN {
 	return txins
 }
 
-func genTxout(donorAddr string) []*protos.TX_TXOUT {
+func genTxout(donorAddr, donorUUID string) []*protos.TX_TXOUT {
 	var txouts []*protos.TX_TXOUT
 
-	smartContractTxout := genSmartContractTxout(donorAddr)
+	smartContractTxout := genSmartContractTxout(donorAddr, donorUUID)
 	txouts = append(txouts, &smartContractTxout)
 
-	channelTxout := genChannelTxout(donorAddr)
-	txouts = append(txouts, &channelTxout)
+	// channelTxout := genChannelTxout(donorAddr)
+	// txouts = append(txouts, &channelTxout)
 
-	fundTxout := genFundTxout(donorAddr)
-	txouts = append(txouts, &fundTxout)
+	// fundTxout := genFundTxout(donorAddr)
+	// txouts = append(txouts, &fundTxout)
 
 	return txouts
+}
+
+func genSmartContractTxout(donorAddr, donorUUID string) protos.TX_TXOUT {
+
+	var txout protos.TX_TXOUT
+
+	txout.Addr = "smartcontract01:1d54a8713923af1718e8eeabec3e4d8596dbbdf2da3f69ea23aeb8c7a5ab73d8"
+	txout.Value = 1000 * 100 * 1000
+
+	txout.Attr = donorAddr + "," + donorUUID
+
+	return txout
 }
 
 func genChannelTxout(donorAddr string) protos.TX_TXOUT {
@@ -117,30 +137,17 @@ func genFundTxout(donorAddr string) protos.TX_TXOUT {
 	return txout
 }
 
-func genSmartContractTxout(donorAddr string) protos.TX_TXOUT {
-
-	var txout protos.TX_TXOUT
-
-	txout.Addr = "smartcontract01:1d54a8713923af1718e8eeabec3e4d8596dbbdf2da3f69ea23aeb8c7a5ab73d8"
-	txout.Value = 1000 * 100 * 995
-
-	txout.Attr = donorAddr
-
-	txDataInfo := fmt.Sprintf("%s%d", txout.Addr, txout.Value)
-	hashed := sha256.Sum256([]byte(txDataInfo))
-	_sign, _ := utils.RsaSign(crypto.SHA256, hashed[:], smartcontract01private)
-
-	txout.Sign = base64.StdEncoding.EncodeToString(_sign)
-
-	return txout
-}
-
-var channel01private, fund01private, smartcontract01private []byte
+var donor01private, channel01private, fund01private, smartcontract01private []byte
 
 func init() {
 	var err error
 
 	filepath := "/home/eric/go/src/github.com/CebEcloudTime/rsaserver/"
+
+	donor01private, err = ioutil.ReadFile(filepath + "donor01private.pem")
+	if err != nil {
+		os.Exit(-1)
+	}
 
 	channel01private, err = ioutil.ReadFile(filepath + "channel01private.pem")
 	if err != nil {
