@@ -1,0 +1,20 @@
+# This compose file will start a cluster with 4 hyperledger peer nodes
+#  vp0: validating node as root
+#  vp1: validating node as peer
+#  vp2: validating node as peer
+#  vp3: validating node as peer
+# https://github.com/yeasy/docker-compose-files
+
+version: '2'
+
+services:
+  # blockchain-explorer
+  explorer:
+    extends:
+      file: explorer.yml
+      service: explorer
+    hostname: explorer
+    environment:
+      - HYP_REST_ENDPOINT=http://192.168.31.20:7050
+    ports:
+      - "9090:9090"
