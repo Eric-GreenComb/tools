@@ -14,6 +14,9 @@ services:
     environment:
       - CORE_PEER_ID=vp0
       - CORE_PEER_ADDRESS=192.168.31.20:7051
+    volumes:
+      - /home/yiyun/go/src/github.com/CebEcloudTime:/go/src/github.com/CebEcloudTime
+      - /home/yiyun/go/src/github.com/golang:/go/src/github.com/golang
     ports:
       - "7050:7050"  # Rest
       - "7051:7051"  # Grpc

@@ -23,18 +23,6 @@ func main() {
 	fmt.Println("============== drawUUID")
 	fmt.Println(drawUUID)
 
-	smartContractAddr := "smartcontract01:1d54a8713923af1718e8eeabec3e4d8596dbbdf2da3f69ea23aeb8c7a5ab73d8"
-	fmt.Println("============== smartContractAddr")
-	fmt.Println(smartContractAddr)
-
-	bargainAddr := "bargain01:8fcc58ea7ed212f7c1ba359d15bea144e67c390044d953797548cf67fd62534a"
-	fmt.Println("============== bargainAddr")
-	fmt.Println(bargainAddr)
-
-	amount := "90000000"
-	fmt.Println("============== amount")
-	fmt.Println(amount)
-
 	txoutAttr := "donor01:275e74b0e340f54135496e46d829b25af699984e6787f9a7b13191ad991a1eb1,15F332E9906ED10294CC634747ADD787"
 
 	tx := genTx(drawUUID, txoutAttr, foundationAddr)
@@ -46,7 +34,7 @@ func main() {
 	fmt.Println("============== base64String")
 	fmt.Println(base64String)
 
-	hashed := sha256.Sum256([]byte(drawUUID + smartContractAddr + bargainAddr + amount + base64String))
+	hashed := sha256.Sum256([]byte(drawUUID + base64String))
 	_sign, _ := utils.RsaSign(crypto.SHA256, hashed[:], fund01private)
 
 	fmt.Println("============== sign")
@@ -75,7 +63,7 @@ func genTxin() []*protos.TX_TXIN {
 	var txins []*protos.TX_TXIN
 	var txin1 protos.TX_TXIN
 	txin1.Addr = "smartcontract01:1d54a8713923af1718e8eeabec3e4d8596dbbdf2da3f69ea23aeb8c7a5ab73d8"
-	txin1.SourceTxHash = "460247fc1bbf377dac34694132fa907b7fc0955264266d898d49b2771b6d1497"
+	txin1.SourceTxHash = "20c290e4d937c709aeab58f8eedd0cbc975bcca15353b0d3291f260dd4c86890"
 	txin1.Idx = 0
 
 	txins = append(txins, &txin1)
@@ -86,8 +74,8 @@ func genTxin() []*protos.TX_TXIN {
 func genTxout(txoutAttr string) []*protos.TX_TXOUT {
 	var txouts []*protos.TX_TXOUT
 
-	rechangeTxout := genRechangeTxout(txoutAttr)
-	txouts = append(txouts, &rechangeTxout)
+	// rechangeTxout := genRechangeTxout(txoutAttr)
+	// txouts = append(txouts, &rechangeTxout)
 
 	contractTxout := genContractTxout(txoutAttr)
 	txouts = append(txouts, &contractTxout)
