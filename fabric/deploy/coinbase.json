@@ -1,0 +1,16 @@
+{
+"jsonrpc": "2.0",
+"method": "invoke",
+"params": {
+"type": 1,
+"chaincodeID":{
+"name":"e6d49912bd32e9b445a91f56673cb007e90231bb53443f0e09c32c44064af763d7b6188f30f759182a1d44da25784822d4af031f277f05b041d235822bf5e35d"
+},
+"ctorMsg": {
+"function":"coinbase",
+"args":["cebbank:29731d0e6c6ca9cb985eabf9fe716d1644c624cae5265c36c9b7a46702003924","eyJ2ZXJzaW9uIjoxNzAxMDEsInRpbWVzdGFtcCI6MTQ4NzI0MjgxOCwidHhpbiI6W3sic291cmNlVHhIYXNoIjoibnVsbCIsImFkZHIiOiJudWxsIn1dLCJ0eG91dCI6W3sidmFsdWUiOjEwMDAwMDAwMDAwMDAwLCJhZGRyIjoiY2ViYmFuazoyOTczMWQwZTZjNmNhOWNiOTg1ZWFiZjlmZTcxNmQxNjQ0YzYyNGNhZTUyNjVjMzZjOWI3YTQ2NzAyMDAzOTI0Iiwic2lnbiI6IklXN2EzVjV1S1Zzc29WaVF1Ym15aVNUWmhDaGUvaTFETklkQkZ6K1pmNGgrbWR3bXFObmtKeFQ3Q0hCOGlxWWdsVjJKcjNicWpHNEJQY0NMNUxVaW5HUnlQQlp2cFRNMTVNSWxOenU3S0doNlBmZUdkdnhCbzFsWm5OMU1RWklOcENldWZFWlBHcTBFNXdCaEtaQzdFeTlKdjRKWTdvaVUyU2RXZ25FL2Zmcz0ifV0sIklucHV0RGF0YSI6ImRvbm9ydXVpZCIsImZvdW5kZXIiOiJjZWJiYW5rIn0=","smZPn6MCd5b07xHFgV2XTYtH6XrkBX2VCYUacNMhrswY9tOg3PpjMUStdefs7iADwgVaUenONsfw9BNaUwhCY6P5F/nE360+/au7bAZeEVtpOhu+S9E+8zoFbleX3Bslp5o6S05nsaM+BdYwRj/XSmoQ8DGfuBeZyTow7gOSh/Q="]
+},
+"secureContext":  "jim"
+},
+"id": 3
+}
