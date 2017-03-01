@@ -66,8 +66,8 @@ func genTxin(donorAddr string) []*protos.TX_TXIN {
 	var txins []*protos.TX_TXIN
 	var txin protos.TX_TXIN
 	txin.Addr = donorAddr
-	txin.SourceTxHash = "700e7f51da673619e602b5d45f0c30b10f03410181c569ebdf2583fdbeb11371"
-	txin.Idx = 1
+	txin.SourceTxHash = "ba750cb72ed3d99bdf6a47548d31d15915fb96cbcdc5d92b653c5c3135d12955"
+	txin.Idx = 0
 
 	txins = append(txins, &txin)
 

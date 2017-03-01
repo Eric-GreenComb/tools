@@ -55,7 +55,7 @@ func genTxin() []*protos.TX_TXIN {
 	var txins []*protos.TX_TXIN
 	var txin protos.TX_TXIN
 	txin.Addr = "cebbank:29731d0e6c6ca9cb985eabf9fe716d1644c624cae5265c36c9b7a46702003924"
-	txin.SourceTxHash = "95f3a0e8fa1440b2205b0f3952551fb030b14b6658323b24d4df747a182de621"
+	txin.SourceTxHash = "aaaaa"
 	txin.Idx = 0
 
 	txins = append(txins, &txin)
@@ -65,9 +65,6 @@ func genTxin() []*protos.TX_TXIN {
 
 func genTxout() []*protos.TX_TXOUT {
 	var txouts []*protos.TX_TXOUT
-
-	rechangeTxout := genRechangeTxout()
-	txouts = append(txouts, &rechangeTxout)
 
 	changeCoinTxout := genChangeCoinTxout()
 	txouts = append(txouts, &changeCoinTxout)
@@ -95,12 +92,7 @@ func genChangeCoinTxout() protos.TX_TXOUT {
 
 	txout.Value = 1000 * 100 * 1000
 	txout.Addr = "donor01:275e74b0e340f54135496e46d829b25af699984e6787f9a7b13191ad991a1eb1"
-
-	txDataInfo := fmt.Sprintf("%s%d", txout.Addr, txout.Value)
-	hashed := sha256.Sum256([]byte(txDataInfo))
-	_sign, _ := utils.RsaSign(crypto.SHA256, hashed[:], donor01private)
-
-	txout.Sign = base64.StdEncoding.EncodeToString(_sign)
+	txout.Attr = "donor01:275e74b0e340f54135496e46d829b25af699984e6787f9a7b13191ad991a1eb1,donorUUID"
 
 	return txout
 }
