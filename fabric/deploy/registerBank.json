@@ -4,7 +4,7 @@
 "params": {
 "type": 1,
 "chaincodeID":{
-"name":"28dbf6f45e37f25c968e83e9b0a53dcbcbf3615e948e318cc2e2263b432d4acb80aa550b91e7581460b4148fc862c0dcf7330a5dd43e57eb6808f159919cff84"
+"name":"ecd4aed37b1c75ea2d83941c329c9631f2659f292e958d5c39955c1a6d24a8dc21c34faa77f0a6d5872f2a63d8c102c4d583fd69002f31b68bbc9d9800e2670f"
 },
 "ctorMsg": {
 "function":"registerBank",

@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"time"
 
 	"github.com/CebEcloudTime/charitycc/protos"
 	"github.com/CebEcloudTime/charitycc/utils"
@@ -71,7 +70,9 @@ func initSmartContract01() protos.SmartContract {
 	treaty.FundAddr = "fund01:25ab580a2093776ca2e1dd1775e96dfec5f1ffbcc9565129351cb330cf0712d7"
 	treaty.FundName = "中国妇女发展基金会"
 	treaty.FundManangerFee = 72
-	treaty.CreateTimestamp = time.Now().UTC().Unix()
+	treaty.CreateTimestamp = 1483228800
+	treaty.UtilTimestamp = 1483228800
+	treaty.TerminationTimestamp = 1609459200
 
 	return treaty
 }
@@ -125,7 +126,9 @@ func initSmartContract02() protos.SmartContract {
 	treaty.FundAddr = "fund01:25ab580a2093776ca2e1dd1775e96dfec5f1ffbcc9565129351cb330cf0712d7"
 	treaty.FundName = "中国妇女发展基金会"
 	treaty.FundManangerFee = 64
-	treaty.CreateTimestamp = time.Now().UTC().Unix()
+	treaty.CreateTimestamp = 1483228800
+	treaty.UtilTimestamp = 1483228800
+	treaty.TerminationTimestamp = 1609459200
 
 	return treaty
 }
@@ -179,7 +182,9 @@ func initSmartContract03() protos.SmartContract {
 	treaty.FundAddr = "fund01:25ab580a2093776ca2e1dd1775e96dfec5f1ffbcc9565129351cb330cf0712d7"
 	treaty.FundName = "中国妇女发展基金会"
 	treaty.FundManangerFee = 64
-	treaty.CreateTimestamp = time.Now().UTC().Unix()
+	treaty.CreateTimestamp = 1483228800
+	treaty.UtilTimestamp = 1483228800
+	treaty.TerminationTimestamp = 1609459200
 
 	return treaty
 }
@@ -233,7 +238,9 @@ func initSmartContract04() protos.SmartContract {
 	treaty.FundAddr = "fund01:25ab580a2093776ca2e1dd1775e96dfec5f1ffbcc9565129351cb330cf0712d7"
 	treaty.FundName = "中国妇女发展基金会"
 	treaty.FundManangerFee = 64
-	treaty.CreateTimestamp = time.Now().UTC().Unix()
+	treaty.CreateTimestamp = 1483228800
+	treaty.UtilTimestamp = 1483228800
+	treaty.TerminationTimestamp = 1609459200
 
 	return treaty
 }
@@ -287,7 +294,9 @@ func initSmartContract05() protos.SmartContract {
 	treaty.FundAddr = "fund01:25ab580a2093776ca2e1dd1775e96dfec5f1ffbcc9565129351cb330cf0712d7"
 	treaty.FundName = "中国妇女发展基金会"
 	treaty.FundManangerFee = 64
-	treaty.CreateTimestamp = time.Now().UTC().Unix()
+	treaty.CreateTimestamp = 1483228800
+	treaty.UtilTimestamp = 1483228800
+	treaty.TerminationTimestamp = 1609459200
 
 	return treaty
 }
