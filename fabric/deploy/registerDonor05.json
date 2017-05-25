@@ -4,7 +4,7 @@
 "params": {
 "type": 1,
 "chaincodeID":{
-"name":"ecd4aed37b1c75ea2d83941c329c9631f2659f292e958d5c39955c1a6d24a8dc21c34faa77f0a6d5872f2a63d8c102c4d583fd69002f31b68bbc9d9800e2670f"
+"name":"69d19dfc93eca3d6437d2d4c5b740c392d66b11479f84093d6e9e722adf7b39941677e12dee810ab8100d60e8579061b47de6707586eb5b3e226ebb73b162627"
 },
 "ctorMsg": {
 "function":"registerDonor",
